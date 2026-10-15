@@ -9,7 +9,7 @@ USER_ID=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
 
 if [[ -z $USER_ID ]]
 then
-  $PSQL "INSERT INTO users(username) VALUES('$USERNAME')"
+    INSERT_USER_RESULT=$($PSQL "INSERT INTO users(username) VALUES('$USERNAME')")
   USER_ID=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
   echo "Welcome, $USERNAME! It looks like this is your first time here."
 else
@@ -42,7 +42,7 @@ do
     echo "It's lower than that, guess again:"
   else
     echo "You guessed it in $NUMBER_OF_GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
-    $PSQL "INSERT INTO games(user_id, number_of_guesses) VALUES($USER_ID, $NUMBER_OF_GUESSES)"
+    INSERT_GAME_RESULT=$($PSQL "INSERT INTO games(user_id, number_of_guesses) VALUES($USER_ID, $NUMBER_OF_GUESSES)")
     break
   fi
 done
